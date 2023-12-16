@@ -1,6 +1,6 @@
 import PG from 'pg'
 import format from 'pg-format'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 import dotenv from 'dotenv'
 
 if (process.env.NODE_ENV !== 'production') {
@@ -8,8 +8,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const sql = `
-drop table if exists counterparties;
-create table counterparties(id serial unique, name text, business text, phone text, address text);
+drop table if exists users;
+create table users(id serial unique, firstname text, lastname text, phone text, address text);
 `
 
 const range = (start, end) => Array.from(
@@ -38,20 +38,23 @@ const f = async function () {
 
   console.log('creating fake data')
   const arr = range(0, numRecords).map(i => {
-      const rc = faker.helpers.createCard()
 
       return {
-          name: rc.company.name,
-          business: rc.company.bs,
-          phone: rc.phone,
-          address: rc.address.streetA + ', ' + rc.address.streetB + ', '
-              + rc.address.zipcode + ' ' + rc.address.city + ', ' + rc.address.county
+          firstname: `${faker.person.firstName()}`,
+          lastname: `${faker.person.lastName()}`,
+          phone: `${faker.phone.number()}`,
+          address: `${faker.location.streetAddress()}` + ', ' 
+              + `${faker.location.zipCode()}` + ' ' 
+              + `${faker.location.city()}` + ', ' 
+              + `${faker.location.county()}`
       }
-  }).map(x => [x.name, x.business, x.phone, x.address])
+  }).map(x => [x.firstname, x.lastname, x.phone, x.address])
+
+  console.log('arr: ', arr)
 
   // perform insert
   console.log('insert data')
-  const insertSql = format('insert into counterparties( name, business, phone, address) values %L returning id', arr)
+  const insertSql = format('insert into users( firstname, lastname, phone, address) values %L returning id', arr)
   const res = await client.query(insertSql)
   console.log('inserted records: ', res.rowCount)
 }
