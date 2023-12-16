@@ -42,7 +42,7 @@ const createTestTable = async function () {
 
   // Create a test table
   console.log('Creating table...')
-  await client.query(sql)
+  //await client.query(sql)
 
   // Populate the test table with rows of data
   console.log('Loading test data...')

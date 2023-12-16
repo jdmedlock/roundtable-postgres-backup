@@ -11,7 +11,14 @@ The functionality to create and load test data is based on the [pgsql-faker repo
 
 Take a look at the [blog post](https://processiqcompany.com/posts/faking-it-at-work)
 
-# To run:
-- install nodejs
-- set env variable DB_CONNECTION_STRING.  It should be in a format: postgresql://dbuser:secretpassword@database.server.com:3211/mydb
-- npm run start
+- Install nodejs
+- Build using `npm install`
+- Create a `.env` file containing your environment variables and set the 
+variable DB_CONNECTION_STRING to the url of your PosgreSQL instance. This
+should be in the format: `postgresql://dbuser:secretpassword@database.server.com:3211/mydb`
+
+### Running
+
+Run `npm run start` from the command line to create and load the test database.
+
+- 

@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test1bkup": "sudo pg_dump -v -U postgres -w -h monorail.proxy.rlwy.net -p 44064 -F t railway > /Users/jim/Downloads/test1backup"
   },
   "keywords": [],
   "author": "Jim Medlock",
